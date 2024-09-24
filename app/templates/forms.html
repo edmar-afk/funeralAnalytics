@@ -1,0 +1,353 @@
+{% load static tailwind_tags %}<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Django Tailwind</title>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0" />
+		<meta
+			http-equiv="X-UA-Compatible"
+			content="ie=edge" />
+		{% tailwind_css %}
+
+		<link
+			href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
+			rel="stylesheet" />
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+			integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+			crossorigin="anonymous"
+			referrerpolicy="no-referrer" />
+	</head>
+
+	<body class="font-poppins bg-purple-500">
+		<div class="mt-14 mx-4 sm:mx-44">
+			<div class="flex flex-col">
+				<div class="bg-purple-700 w-full rounded-2xl shadow-lg">
+					<div class="flex flex-row justify-between items-center mx-4 flex-wrap py-8">
+						<p class="font-bold text-white text-3xl">Survey Questionaire</p>
+						<a href="{% url 'chart' %}" class="text-white font-bold flex items-center">
+							<i class="fa-solid fa-chart-line mr-1"></i>
+							Go to Dashboard
+						</a>
+					</div>
+					<p class="text-white mx-6 pb-14 text-sm sm:text-lg">
+						This survey is to identify people in Vincenzo Sagun prepare for a death plan. This survey is anonymous, the
+						data will be used to understand the community's preparedness for end-life arrangements and the responses
+						will help resources and support for better planning.
+					</p>
+				</div>
+
+				<form
+					action="#"
+					class="mt-16 mb-8">
+					<!-- Question 1: How old are you? -->
+					<!-- Question 1: How old are you? -->
+					<div class="bg-gray-100 p-6 w-full rounded-2xl">
+						<p class="font-bold text-sm sm:text-lg">1. How old are you?</p>
+
+						<div class="flex items-center mt-4">
+							<input
+								id="age-18-30"
+								type="radio"
+								value="18-30"
+								name="age"
+								class="w-4 h-4 text-purple-600 bg-gray-100 border-purple-800 focus:ring-purple-500 ring-offset-gray-800 focus:ring-2" />
+							<label
+								for="age-18-30"
+								class="ms-2 text-sm sm:text-lg font-medium text-gray-900">
+								18 - 30
+							</label>
+						</div>
+
+						<div class="flex items-center">
+							<input
+								id="age-31-45"
+								type="radio"
+								value="31-45"
+								name="age"
+								class="w-4 h-4 text-purple-600 bg-gray-100 border-purple-800 focus:ring-purple-500 ring-offset-gray-800 focus:ring-2" />
+							<label
+								for="age-31-45"
+								class="ms-2 text-sm sm:text-lg font-medium text-gray-900">
+								31 - 45
+							</label>
+						</div>
+
+						<div class="flex items-center">
+							<input
+								id="age-46-60"
+								type="radio"
+								value="46-60"
+								name="age"
+								class="w-4 h-4 text-purple-600 bg-gray-100 border-purple-800 focus:ring-purple-500 ring-offset-gray-800 focus:ring-2" />
+							<label
+								for="age-46-60"
+								class="ms-2 text-sm sm:text-lg font-medium text-gray-900">
+								46 - 60
+							</label>
+						</div>
+
+						<div class="flex items-center">
+							<input
+								id="age-61-above"
+								type="radio"
+								value="61-above"
+								name="age"
+								class="w-4 h-4 text-purple-600 bg-gray-100 border-purple-800 focus:ring-purple-500 ring-offset-gray-800 focus:ring-2" />
+							<label
+								for="age-61-above"
+								class="ms-2 text-sm sm:text-lg font-medium text-gray-900">
+								61 and above
+							</label>
+						</div>
+					</div>
+
+					<!-- Question 2: Gender -->
+					<div class="bg-gray-100 p-6 w-full rounded-2xl mt-8">
+						<p class="font-bold text-sm sm:text-lg">2. Gender</p>
+
+						<div class="flex items-center mt-4">
+							<input
+								id="gender-male"
+								type="radio"
+								value="male"
+								name="gender"
+								class="w-4 h-4 text-purple-600 bg-gray-100 border-purple-800 focus:ring-purple-500 ring-offset-gray-800 focus:ring-2" />
+							<label
+								for="gender-male"
+								class="ms-2 text-sm sm:text-lg font-medium text-gray-900">
+								Male
+							</label>
+						</div>
+
+						<div class="flex items-center">
+							<input
+								id="gender-female"
+								type="radio"
+								value="female"
+								name="gender"
+								class="w-4 h-4 text-purple-600 bg-gray-100 border-purple-800 focus:ring-purple-500 ring-offset-gray-800 focus:ring-2" />
+							<label
+								for="gender-female"
+								class="ms-2 text-sm sm:text-lg font-medium text-gray-900">
+								Female
+							</label>
+						</div>
+					</div>
+				</form>
+
+				<form
+					action="#"
+					class="mb-8">
+					<div class="bg-gray-100 p-6 w-full rounded-2xl">
+						<p class="font-bold text-purple-700 text-2xl mb-4">Awareness and Knowledge</p>
+
+						<!-- Question 1 -->
+						<p class="font-bold text-sm sm:text-lg">
+							1. Have you ever thought about planning for your own funeral or end-of-life arrangements?
+						</p>
+						<div class="flex items-center mt-4">
+							<input
+								id="1yes"
+								type="radio"
+								value="yes"
+								name="question1"
+								class="w-4 h-4 text-purple-600 bg-gray-100 border-purple-800 focus:ring-purple-500 ring-offset-gray-800 focus:ring-2"
+								checked />
+							<label
+								for="1yes"
+								class="ms-2 text-sm sm:text-lg font-medium text-gray-900">
+								Yes
+							</label>
+						</div>
+						<div class="flex items-center">
+							<input
+								id="1no"
+								type="radio"
+								value="no"
+								name="question1"
+								class="w-4 h-4 text-purple-600 bg-gray-100 border-purple-800 focus:ring-purple-500 ring-offset-gray-800 focus:ring-2" />
+							<label
+								for="1no"
+								class="ms-2 text-sm sm:text-lg font-medium text-gray-900">
+								No
+							</label>
+						</div>
+
+						<!-- Question 2 -->
+						<div class="mt-8">
+							<p class="font-bold text-sm sm:text-lg">2. Do you know a funeral plan or pre-need funeral arrangement?</p>
+							<div class="flex items-center mt-4">
+								<input
+									id="2yes"
+									type="radio"
+									value="yes"
+									name="question2"
+									class="w-4 h-4 text-purple-600 bg-gray-100 border-purple-800 focus:ring-purple-500 ring-offset-gray-800 focus:ring-2"
+									checked />
+								<label
+									for="2yes"
+									class="ms-2 text-sm sm:text-lg font-medium text-gray-900">
+									Yes
+								</label>
+							</div>
+							<div class="flex items-center">
+								<input
+									id="2no"
+									type="radio"
+									value="no"
+									name="question2"
+									class="w-4 h-4 text-purple-600 bg-gray-100 border-purple-800 focus:ring-purple-500 ring-offset-gray-800 focus:ring-2" />
+								<label
+									for="2no"
+									class="ms-2 text-sm sm:text-lg font-medium text-gray-900">
+									No
+								</label>
+							</div>
+						</div>
+
+						<!-- Question 3 -->
+						<div class="mt-8">
+							<p class="font-bold text-sm sm:text-lg">
+								3. Are you aware of the various options for funeral services (e.g., cremation, burial)?
+							</p>
+							<div class="flex items-center mt-4">
+								<input
+									id="3yes"
+									type="radio"
+									value="yes"
+									name="question3"
+									class="w-4 h-4 text-purple-600 bg-gray-100 border-purple-800 focus:ring-purple-500 ring-offset-gray-800 focus:ring-2"
+									checked />
+								<label
+									for="3yes"
+									class="ms-2 text-sm sm:text-lg font-medium text-gray-900">
+									Yes
+								</label>
+							</div>
+							<div class="flex items-center">
+								<input
+									id="3no"
+									type="radio"
+									value="no"
+									name="question3"
+									class="w-4 h-4 text-purple-600 bg-gray-100 border-purple-800 focus:ring-purple-500 ring-offset-gray-800 focus:ring-2" />
+								<label
+									for="3no"
+									class="ms-2 text-sm sm:text-lg font-medium text-gray-900">
+									No
+								</label>
+							</div>
+						</div>
+					</div>
+				</form>
+
+				<form
+					action="#"
+					class="mb-4">
+					<div class="bg-gray-100 p-6 w-full rounded-2xl">
+						<p class="font-bold text-purple-700 text-2xl mb-4">Financial Preparedness</p>
+
+						<!-- Question 1 -->
+						<p class="font-bold text-sm sm:text-lg">
+							1. Have you set aside funds or purchased insurance for funeral or burial expenses?
+						</p>
+						<div class="flex items-center mt-4">
+							<input
+								id="1yes"
+								type="radio"
+								value="yes"
+								name="question1"
+								class="w-4 h-4 text-purple-600 bg-gray-100 border-purple-800 focus:ring-purple-500 ring-offset-gray-800 focus:ring-2"
+								checked />
+							<label
+								for="1yes"
+								class="ms-2 text-sm sm:text-lg font-medium text-gray-900">
+								Yes, I have a dedicated fund.
+							</label>
+						</div>
+						<div class="flex items-center">
+							<input
+								id="1no"
+								type="radio"
+								value="no"
+								name="question1"
+								class="w-4 h-4 text-purple-600 bg-gray-100 border-purple-800 focus:ring-purple-500 ring-offset-gray-800 focus:ring-2" />
+							<label
+								for="1no"
+								class="ms-2 text-sm sm:text-lg font-medium text-gray-900">
+								Yes, I have funeral insurance.
+							</label>
+						</div>
+						<div class="flex items-center">
+							<input
+								id="1no"
+								type="radio"
+								value="no"
+								name="question1"
+								class="w-4 h-4 text-purple-600 bg-gray-100 border-purple-800 focus:ring-purple-500 ring-offset-gray-800 focus:ring-2" />
+							<label
+								for="1no"
+								class="ms-2 text-sm sm:text-lg font-medium text-gray-900">
+								No, but I am planning to.
+							</label>
+						</div>
+
+						<!-- Question 2 -->
+						<div class="mt-8">
+							<p class="font-bold text-sm sm:text-lg">2. How do you expect to cover funeral expenses?</p>
+							<div class="flex items-center mt-4">
+								<input
+									id="2yes"
+									type="radio"
+									value="yes"
+									name="question2"
+									class="w-4 h-4 text-purple-600 bg-gray-100 border-purple-800 focus:ring-purple-500 ring-offset-gray-800 focus:ring-2"
+									checked />
+								<label
+									for="2yes"
+									class="ms-2 text-sm sm:text-lg font-medium text-gray-900">
+									Personal savings
+								</label>
+							</div>
+							<div class="flex items-center">
+								<input
+									id="2no"
+									type="radio"
+									value="no"
+									name="question2"
+									class="w-4 h-4 text-purple-600 bg-gray-100 border-purple-800 focus:ring-purple-500 ring-offset-gray-800 focus:ring-2" />
+								<label
+									for="2no"
+									class="ms-2 text-sm sm:text-lg font-medium text-gray-900">
+									Life insurance
+								</label>
+							</div>
+							<div class="flex items-center">
+								<input
+									id="2no"
+									type="radio"
+									value="no"
+									name="question2"
+									class="w-4 h-4 text-purple-600 bg-gray-100 border-purple-800 focus:ring-purple-500 ring-offset-gray-800 focus:ring-2" />
+								<label
+									for="2no"
+									class="ms-2 text-sm sm:text-lg font-medium text-gray-900">
+									Funeral insurance
+								</label>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+			<button
+				class="bg-blue-700 py-3 px-8 text-white text-xl font-bold rounded-2xl mb-24 hover:scale-110 hover:shadow-2xl duration-300">
+				Submit
+			</button>
+		</div>
+		<script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"></script>
+	</body>
+</html>

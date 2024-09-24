@@ -1,0 +1,291 @@
+{% load static tailwind_tags %}<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Django Tailwind</title>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0" />
+		<meta
+			http-equiv="X-UA-Compatible"
+			content="ie=edge" />
+		{% tailwind_css %}
+
+		<link
+			href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
+			rel="stylesheet" />
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+			integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+			crossorigin="anonymous"
+			referrerpolicy="no-referrer" />
+		<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+	</head>
+
+	<body class="font-poppins bg-purple-500">
+		<div class="mt-14 mx-4 sm:mx-44 mb-24">
+			<div class="flex flex-col">
+				<div class="bg-purple-700 w-full rounded-2xl shadow-lg">
+					<div class="flex flex-row justify-between items-center mx-4 flex-wrap py-8">
+						<p class="font-bold text-white text-3xl">Survey Questionaire Results</p>
+						<a
+							href="{% url 'homepage' %}"
+							class="text-white font-bold flex items-center">
+							<i class="fa-brands fa-wpforms mr-1"></i>
+							Go to form
+						</a>
+					</div>
+					<p class="text-white mx-6 pb-14 text-sm sm:text-lg">
+						This survey is to identify people in Vincenzo Sagun prepare for a death plan. This survey is anonymous, the
+						data will be used to understand the community's preparedness for end-life arrangements and the responses
+						will help resources and support for better planning.
+					</p>
+				</div>
+
+				<div class="mt-16 mb-8">
+					<!-- Question 1: How old are you? -->
+					<div class="bg-gray-100 p-6 w-full rounded-2xl">
+						<div class="flex justify-between items-center">
+							<p class="font-bold text-sm sm:text-lg">1. How old are you?</p>
+							<p class="text-gray-700">
+								<i class="fa-solid fa-users mr-1"></i>
+								45 Respondents
+							</p>
+						</div>
+						<center><div id="age"></div></center>
+						<script>
+							var options = {
+								series: [44, 55, 13, 43],
+								chart: {
+									width: 580,
+									type: "pie",
+								},
+								labels: ["18-30", "31-45", "46-60", "61 and above"],
+								responsive: [
+									{
+										breakpoint: 480,
+										options: {
+											chart: {
+												width: 200,
+											},
+											legend: {
+												position: "bottom",
+											},
+										},
+									},
+								],
+							};
+
+							var chart = new ApexCharts(document.querySelector("#age"), options);
+							chart.render();
+						</script>
+					</div>
+
+					<div class="bg-gray-100 p-6 w-full rounded-2xl mt-8">
+						<div class="flex justify-between items-center">
+							<p class="font-bold text-sm sm:text-lg">2. Gender</p>
+							<p class="text-gray-700">
+								<i class="fa-solid fa-users mr-1"></i>
+								45 Respondents
+							</p>
+						</div>
+
+						<center><div id="gender"></div></center>
+						<script>
+							var options = {
+								series: [44, 55],
+								chart: {
+									width: 580,
+									type: "pie",
+								},
+								labels: ["Male", "Female"],
+								responsive: [
+									{
+										breakpoint: 480,
+										options: {
+											chart: {
+												width: 200,
+											},
+											legend: {
+												position: "bottom",
+											},
+										},
+									},
+								],
+							};
+
+							var chart = new ApexCharts(document.querySelector("#gender"), options);
+							chart.render();
+						</script>
+					</div>
+				</div>
+
+				<div class="mb-8">
+					<div class="bg-gray-100 p-6 w-full rounded-2xl">
+						<div class="flex justify-between items-center">
+							<p class="font-bold text-purple-700 text-2xl mb-4">Awareness and Knowledge</p>
+							<p class="text-gray-700">
+								<i class="fa-solid fa-users mr-1"></i>
+								45 Respondents
+							</p>
+						</div>
+
+						<center><div id="awareness"></div></center>
+						<script>
+							var options = {
+								series: [
+									{
+										name: "Yes",
+										group: "budget",
+										data: [1, 2, 3, 4],
+									},
+									{
+										name: "No",
+										group: "actual",
+										data: [4, 3, 2, 1],
+									},
+								],
+								chart: {
+									type: "bar",
+									height: 350,
+									stacked: true,
+								},
+								stroke: {
+									width: 1,
+									colors: ["#fff"],
+								},
+								dataLabels: {
+									formatter: (val) => {
+										return val;
+									},
+								},
+								plotOptions: {
+									bar: {
+										horizontal: true,
+									},
+								},
+								xaxis: {
+									categories: [
+										"1.Have you ever thought about planning for your own funeral or end-of-life arrangements?",
+										"2. Do you know a funeral plan or pre-need funeral arrangement?",
+										"3. Are you aware of the various options for funeral services (e.g., cremation, burial)?",
+										"4. Do you know about the potential costs involved in funeral arrangements?",
+									],
+									labels: {
+										formatter: (val) => {
+											return val;
+										},
+									},
+								},
+								fill: {
+									opacity: 1,
+								},
+								colors: ["#80c7fd", "#008FFB", "#80f1cb", "#00E396"],
+								legend: {
+									position: "top",
+									horizontalAlign: "left",
+								},
+							};
+
+							var chart = new ApexCharts(document.querySelector("#awareness"), options);
+							chart.render();
+						</script>
+					</div>
+				</div>
+
+				<div class="mb-4">
+					<div class="bg-gray-100 p-6 w-full rounded-2xl">
+						<div class="flex justify-between items-center">
+							<p class="font-bold text-purple-700 text-2xl mb-4">Financial Preparedness</p>
+							<p class="text-gray-700">
+								<i class="fa-solid fa-users mr-1"></i>
+								45 Respondents
+							</p>
+						</div>
+						<!-- Question 1 -->
+						<p class="font-bold text-sm sm:text-lg mt-4">
+							1. Have you set aside funds or purchased insurance for funeral or burial expenses?
+						</p>
+                        <center><div id="prepared1"></div></center>
+						<script>
+							var options = {
+								series: [
+									{
+										data: [1, 2, 3],
+									},
+								],
+								chart: {
+									type: "bar",
+									height: 350,
+								},
+								plotOptions: {
+									bar: {
+										borderRadius: 4,
+										borderRadiusApplication: "end",
+										horizontal: true,
+									},
+								},
+								dataLabels: {
+									enabled: false,
+								},
+								xaxis: {
+									categories: [
+										"Yes, I have a dedicated fund",
+										"Yes, I have funeral insurance",
+										"No, but I am planning to",
+										
+									],
+								},
+							};
+
+							var chart = new ApexCharts(document.querySelector("#prepared1"), options);
+							chart.render();
+						</script>
+
+						<!-- Question 2 -->
+						<div class="mt-12">
+							<p class="font-bold text-sm sm:text-lg">2. How do you expect to cover funeral expenses?</p>
+							<center><div id="prepared2"></div></center>
+						<script>
+							var options = {
+								series: [
+									{
+										data: [1, 2, 3],
+									},
+								],
+								chart: {
+									type: "bar",
+									height: 350,
+								},
+								plotOptions: {
+									bar: {
+										borderRadius: 4,
+										borderRadiusApplication: "end",
+										horizontal: true,
+									},
+								},
+								dataLabels: {
+									enabled: false,
+								},
+								xaxis: {
+									categories: [
+										"Personal savings",
+										"Life insurance",
+										"Funeral insurance",
+										
+									],
+								},
+							};
+
+							var chart = new ApexCharts(document.querySelector("#prepared2"), options);
+							chart.render();
+						</script>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"></script>
+	</body>
+</html>
