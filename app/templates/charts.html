@@ -29,12 +29,16 @@
 				<div class="bg-purple-700 w-full rounded-2xl shadow-lg">
 					<div class="flex flex-row justify-between items-center mx-4 flex-wrap py-8">
 						<p class="font-bold text-white text-3xl">Survey Questionaire Results</p>
-						<a
-							href="{% url 'homepage' %}"
-							class="text-white font-bold flex items-center">
-							<i class="fa-brands fa-wpforms mr-1"></i>
-							Go to form
-						</a>
+						<div class="flex flex-col items-center">
+							<a
+								href="{% url 'homepage' %}"
+								class="text-white font-bold flex items-center">
+								<i class="fa-brands fa-wpforms mr-1"></i>
+								Go to form
+							</a>
+
+							<a href="{% url 'logout' %}" class="text-white">Logout</a>
+						</div>
 					</div>
 					<p class="text-white mx-6 pb-14 text-sm sm:text-lg">
 						This survey is to identify people in Vincenzo Sagun prepare for a death plan. This survey is anonymous, the
@@ -50,35 +54,50 @@
 							<p class="font-bold text-sm sm:text-lg">1. How old are you?</p>
 							<p class="text-gray-700">
 								<i class="fa-solid fa-users mr-1"></i>
-								45 Respondents
+								{{total_count}} Respondents
 							</p>
 						</div>
 						<center><div id="age"></div></center>
 						<script>
-							var options = {
-								series: [44, 55, 13, 43],
-								chart: {
-									width: 580,
-									type: "pie",
-								},
-								labels: ["18-30", "31-45", "46-60", "61 and above"],
-								responsive: [
-									{
-										breakpoint: 480,
-										options: {
-											chart: {
-												width: 200,
-											},
-											legend: {
-												position: "bottom",
-											},
-										},
-									},
-								],
-							};
+														// Get age data from Django context variables
+														 var ageData = {
+														     age_18_30: {{ age_18_30 }},
+														     age_31_45: {{ age_31_45 }},
+														     age_46_60: {{ age_46_60 }},
+														     age_61_plus: {{ age_61_plus }},
+														 };
 
-							var chart = new ApexCharts(document.querySelector("#age"), options);
-							chart.render();
+														 // Configure the chart with dynamic data
+														 var options = {
+														     series: [
+														         ageData.age_18_30,
+														         ageData.age_31_45,
+														         ageData.age_46_60,
+														         ageData.age_61_plus
+														     ],
+														     chart: {
+														         width: 580,
+														         type: "pie",
+														     },
+														     labels: ["18-30", "31-45", "46-60", "61 and above"],
+														     responsive: [
+														         {
+														             breakpoint: 480,
+														             options: {
+														                 chart: {
+														                     width: 200,
+														                 },
+														                 legend: {
+														                     position: "bottom",
+														                 },
+														             },
+														         },
+														     ],
+														 };
+
+														// Age Chart
+							var ageChart = new ApexCharts(document.querySelector("#age"), options);
+							ageChart.render();
 						</script>
 					</div>
 
@@ -87,36 +106,47 @@
 							<p class="font-bold text-sm sm:text-lg">2. Gender</p>
 							<p class="text-gray-700">
 								<i class="fa-solid fa-users mr-1"></i>
-								45 Respondents
+								{{total_count}} Respondents
 							</p>
 						</div>
 
 						<center><div id="gender"></div></center>
 						<script>
-							var options = {
-								series: [44, 55],
-								chart: {
-									width: 580,
-									type: "pie",
-								},
-								labels: ["Male", "Female"],
-								responsive: [
-									{
-										breakpoint: 480,
-										options: {
-											chart: {
-												width: 200,
-											},
-											legend: {
-												position: "bottom",
-											},
-										},
-									},
-								],
-							};
+																					// Gender Chart Data
+														var genderData = {
+														    male: {{ gender_male }},
+														    female: {{ gender_female }},
+														};
 
-							var chart = new ApexCharts(document.querySelector("#gender"), options);
-							chart.render();
+														// Configure the Gender Chart
+														var optionsGender = {
+														    series: [
+														        genderData.male,
+														        genderData.female
+														    ],
+														    chart: {
+														        width: 580,
+														        type: "pie",
+														    },
+														    labels: ["Male", "Female"],
+														    responsive: [
+														        {
+														            breakpoint: 480,
+														            options: {
+														                chart: {
+														                    width: 200,
+														                },
+														                legend: {
+														                    position: "bottom",
+														                },
+														            },
+														        },
+														    ],
+														};
+
+																					// Gender Chart
+							var genderChart = new ApexCharts(document.querySelector("#gender"), optionsGender);
+							genderChart.render();
 						</script>
 					</div>
 				</div>
@@ -127,69 +157,83 @@
 							<p class="font-bold text-purple-700 text-2xl mb-4">Awareness and Knowledge</p>
 							<p class="text-gray-700">
 								<i class="fa-solid fa-users mr-1"></i>
-								45 Respondents
+								{{total_count}} Respondents
 							</p>
 						</div>
 
 						<center><div id="awareness"></div></center>
 						<script>
-							var options = {
-								series: [
-									{
-										name: "Yes",
-										group: "budget",
-										data: [1, 2, 3, 4],
-									},
-									{
-										name: "No",
-										group: "actual",
-										data: [4, 3, 2, 1],
-									},
-								],
-								chart: {
-									type: "bar",
-									height: 350,
-									stacked: true,
-								},
-								stroke: {
-									width: 1,
-									colors: ["#fff"],
-								},
-								dataLabels: {
-									formatter: (val) => {
-										return val;
-									},
-								},
-								plotOptions: {
-									bar: {
-										horizontal: true,
-									},
-								},
-								xaxis: {
-									categories: [
-										"1.Have you ever thought about planning for your own funeral or end-of-life arrangements?",
-										"2. Do you know a funeral plan or pre-need funeral arrangement?",
-										"3. Are you aware of the various options for funeral services (e.g., cremation, burial)?",
-										"4. Do you know about the potential costs involved in funeral arrangements?",
-									],
-									labels: {
-										formatter: (val) => {
-											return val;
-										},
-									},
-								},
-								fill: {
-									opacity: 1,
-								},
-								colors: ["#80c7fd", "#008FFB", "#80f1cb", "#00E396"],
-								legend: {
-									position: "top",
-									horizontalAlign: "left",
-								},
+														// Awareness Chart Data
+							var awarenessData = {
+							    yes: [
+							        {{ awareness_1_1 }}, // "Yes" for question 1
+							        {{ awareness_2_1 }}, // "Yes" for question 2
+							        {{ awareness_3_1 }}  // "Yes" for question 3
+							    ],
+							    no: [
+							        {{ awareness_1_2 }}, // "No" for question 1
+							        {{ awareness_2_2 }}, // "No" for question 2
+							        {{ awareness_3_2 }}  // "No" for question 3
+							    ],
 							};
 
-							var chart = new ApexCharts(document.querySelector("#awareness"), options);
-							chart.render();
+							// Configure the Awareness Chart
+							var options = {
+							    series: [
+							        {
+							            name: "Yes",
+							            group: "responses",
+							            data: awarenessData.yes,
+							        },
+							        {
+							            name: "No",
+							            group: "responses",
+							            data: awarenessData.no,
+							        },
+							    ],
+							    chart: {
+							        type: "bar",
+							        height: 350,
+							        stacked: true,
+							    },
+							    stroke: {
+							        width: 1,
+							        colors: ["#fff"],
+							    },
+							    dataLabels: {
+							        formatter: (val) => {
+							            return val;
+							        },
+							    },
+							    plotOptions: {
+							        bar: {
+							            horizontal: true,
+							        },
+							    },
+							    xaxis: {
+							        categories: [
+							            "1. Have you ever thought about planning for your own funeral or end-of-life arrangements?",
+							            "2. Do you know a funeral plan or pre-need funeral arrangement?",
+							            "3. Are you aware of the various options for funeral services (e.g., cremation, burial)?",
+							        ],
+							        labels: {
+							            formatter: (val) => {
+							                return val;
+							            },
+							        },
+							    },
+							    fill: {
+							        opacity: 1,
+							    },
+							    colors: ["#00FF00", "#FF0000"],
+							    legend: {
+							        position: "top",
+							        horizontalAlign: "left",
+							    },
+							};
+
+								var awarenessChart = new ApexCharts(document.querySelector("#awareness"), options);
+								awarenessChart.render();
 						</script>
 					</div>
 				</div>
@@ -200,87 +244,115 @@
 							<p class="font-bold text-purple-700 text-2xl mb-4">Financial Preparedness</p>
 							<p class="text-gray-700">
 								<i class="fa-solid fa-users mr-1"></i>
-								45 Respondents
+								{{total_count}} Respondents
 							</p>
 						</div>
 						<!-- Question 1 -->
 						<p class="font-bold text-sm sm:text-lg mt-4">
 							1. Have you set aside funds or purchased insurance for funeral or burial expenses?
 						</p>
-                        <center><div id="prepared1"></div></center>
+						<center><div id="prepared1"></div></center>
 						<script>
-							var options = {
-								series: [
-									{
-										data: [1, 2, 3],
-									},
-								],
-								chart: {
-									type: "bar",
-									height: 350,
-								},
-								plotOptions: {
-									bar: {
-										borderRadius: 4,
-										borderRadiusApplication: "end",
-										horizontal: true,
-									},
-								},
-								dataLabels: {
-									enabled: false,
-								},
-								xaxis: {
-									categories: [
-										"Yes, I have a dedicated fund",
-										"Yes, I have funeral insurance",
-										"No, but I am planning to",
-										
-									],
-								},
+														// Financial_1 Chart Data
+							var financial1Data = [
+							    {{ financial_1_1 }}, // "Yes, I have a dedicated fund"
+							    {{ financial_1_2 }}, // "Yes, I have funeral insurance"
+							    {{ financial_1_3 }}  // "No, but I am planning to"
+							];
+
+							// Configure the Financial_1 Chart
+							var optionsFinancial1 = {
+							    series: [
+							        {
+							            name: "Count", // Add a meaningful series name
+							            data: financial1Data,
+							        },
+							    ],
+							    chart: {
+							        type: "bar",
+							        height: 350,
+							    },
+							    plotOptions: {
+							        bar: {
+							            borderRadius: 4,
+							            borderRadiusApplication: "end",
+							            horizontal: true,
+							        },
+							    },
+							    dataLabels: {
+							        enabled: false,
+							    },
+							    xaxis: {
+							        categories: [
+							            "Yes, I have a dedicated fund",
+							            "Yes, I have funeral insurance",
+							            "No, but I am planning to",
+							        ],
+							    },
+							    tooltip: {
+							        y: {
+							            formatter: function (val) {
+							                return val + " respondents"; // Customize tooltip display
+							            },
+							        },
+							    },
 							};
 
-							var chart = new ApexCharts(document.querySelector("#prepared1"), options);
-							chart.render();
+							// Render the Financial_1 Chart
+							var financial1Chart = new ApexCharts(document.querySelector("#prepared1"), optionsFinancial1);
+							financial1Chart.render();
 						</script>
 
 						<!-- Question 2 -->
 						<div class="mt-12">
 							<p class="font-bold text-sm sm:text-lg">2. How do you expect to cover funeral expenses?</p>
 							<center><div id="prepared2"></div></center>
-						<script>
-							var options = {
-								series: [
-									{
-										data: [1, 2, 3],
-									},
-								],
-								chart: {
-									type: "bar",
-									height: 350,
-								},
-								plotOptions: {
-									bar: {
-										borderRadius: 4,
-										borderRadiusApplication: "end",
-										horizontal: true,
-									},
-								},
-								dataLabels: {
-									enabled: false,
-								},
-								xaxis: {
-									categories: [
-										"Personal savings",
-										"Life insurance",
-										"Funeral insurance",
-										
-									],
-								},
-							};
+							<script>
+																// Financial_2 Chart Data
+								var financial2Data = [
+								    {{ financial_2_1 }}, // "Personal savings"
+								    {{ financial_2_2 }}, // "Life insurance"
+								    {{ financial_2_3 }}  // "Funeral insurance"
+								];
 
-							var chart = new ApexCharts(document.querySelector("#prepared2"), options);
-							chart.render();
-						</script>
+								// Configure the Financial_2 Chart
+								var optionsFinancial2 = {
+								    series: [
+								        {
+								            name: "Count", // Add a meaningful series name
+								            data: financial2Data,
+								        },
+								    ],
+								    chart: {
+								        type: "bar",
+								        height: 350,
+								    },
+								    plotOptions: {
+								        bar: {
+								            borderRadius: 4,
+								            borderRadiusApplication: "end",
+								            horizontal: true,
+								        },
+								    },
+								    dataLabels: {
+								        enabled: false,
+								    },
+								    xaxis: {
+								        categories: ["Personal savings", "Life insurance", "Funeral insurance"],
+								    },
+								    tooltip: {
+								        y: {
+								            formatter: function (val) {
+								                return val + " respondents"; // Customize tooltip display
+								            },
+								        },
+								    },
+								};
+
+								// Render the Financial_2 Chart
+								var financial2Chart = new ApexCharts(document.querySelector("#prepared2"), optionsFinancial2);
+								financial2Chart.render();
+							</script>
 						</div>
 					</div>
 				</div>

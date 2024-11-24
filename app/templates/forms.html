@@ -23,12 +23,14 @@
 	</head>
 
 	<body class="font-poppins bg-purple-500">
-		<div class="mt-14 mx-4 sm:mx-44">
+		<div class="mt-14 mx-4 md:mx-24 sm:mx-44">
 			<div class="flex flex-col">
 				<div class="bg-purple-700 w-full rounded-2xl shadow-lg">
 					<div class="flex flex-row justify-between items-center mx-4 flex-wrap py-8">
 						<p class="font-bold text-white text-3xl">Survey Questionaire</p>
-						<a href="{% url 'chart' %}" class="text-white font-bold flex items-center">
+						<a
+							href="{% url 'chart' %}"
+							class="text-white font-bold flex items-center">
 							<i class="fa-solid fa-chart-line mr-1"></i>
 							Go to Dashboard
 						</a>
@@ -40,11 +42,56 @@
 					</p>
 				</div>
 
+				{% if messages %}
+				<div class="messages">
+					{% for message in messages %} {% if message.tags == "success" %}
+					<div
+						class="flex items-center p-4 text-sm text-green-800 border border-green-300 rounded-lg bg-green-50 mt-8"
+						role="alert">
+						<svg
+							class="flex-shrink-0 inline w-4 h-4 me-3"
+							aria-hidden="true"
+							xmlns="http://www.w3.org/2000/svg"
+							fill="currentColor"
+							viewBox="0 0 20 20">
+							<path
+								d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+						</svg>
+						<span class="sr-only">Success</span>
+						<div>
+							<span class="font-medium">Success!</span>
+							{{message}}
+						</div>
+					</div>
+					{% else %}
+					<div
+						class="flex items-center p-4 mb-4 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50"
+						role="alert">
+						<svg
+							class="flex-shrink-0 inline w-4 h-4 me-3"
+							aria-hidden="true"
+							xmlns="http://www.w3.org/2000/svg"
+							fill="currentColor"
+							viewBox="0 0 20 20">
+							<path
+								d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+						</svg>
+						<span class="sr-only">Danger</span>
+						<div>
+							<span class="font-medium">Error! </span>
+							{{message}}
+						</div>
+					</div>
+					{% endif %} {% endfor %}
+				</div>
+				{% endif %}
+
 				<form
-					action="#"
-					class="mt-16 mb-8">
-					<!-- Question 1: How old are you? -->
-					<!-- Question 1: How old are you? -->
+					action="{% url 'homepage' %}"
+					method="POST"
+					class="mt-16 mb-8"
+					enctype="multipart/form-data">
+					{% csrf_token %}
 					<div class="bg-gray-100 p-6 w-full rounded-2xl">
 						<p class="font-bold text-sm sm:text-lg">1. How old are you?</p>
 
@@ -54,6 +101,7 @@
 								type="radio"
 								value="18-30"
 								name="age"
+								checked
 								class="w-4 h-4 text-purple-600 bg-gray-100 border-purple-800 focus:ring-purple-500 ring-offset-gray-800 focus:ring-2" />
 							<label
 								for="age-18-30"
@@ -106,7 +154,7 @@
 					</div>
 
 					<!-- Question 2: Gender -->
-					<div class="bg-gray-100 p-6 w-full rounded-2xl mt-8">
+					<div class="bg-gray-100 p-6 w-full rounded-2xl my-8">
 						<p class="font-bold text-sm sm:text-lg">2. Gender</p>
 
 						<div class="flex items-center mt-4">
@@ -115,6 +163,7 @@
 								type="radio"
 								value="male"
 								name="gender"
+								checked
 								class="w-4 h-4 text-purple-600 bg-gray-100 border-purple-800 focus:ring-purple-500 ring-offset-gray-800 focus:ring-2" />
 							<label
 								for="gender-male"
@@ -137,12 +186,8 @@
 							</label>
 						</div>
 					</div>
-				</form>
 
-				<form
-					action="#"
-					class="mb-8">
-					<div class="bg-gray-100 p-6 w-full rounded-2xl">
+					<div class="bg-gray-100 p-6 w-full rounded-2xl mb-8">
 						<p class="font-bold text-purple-700 text-2xl mb-4">Awareness and Knowledge</p>
 
 						<!-- Question 1 -->
@@ -154,7 +199,7 @@
 								id="1yes"
 								type="radio"
 								value="yes"
-								name="question1"
+								name="awareness1"
 								class="w-4 h-4 text-purple-600 bg-gray-100 border-purple-800 focus:ring-purple-500 ring-offset-gray-800 focus:ring-2"
 								checked />
 							<label
@@ -168,7 +213,7 @@
 								id="1no"
 								type="radio"
 								value="no"
-								name="question1"
+								name="awareness1"
 								class="w-4 h-4 text-purple-600 bg-gray-100 border-purple-800 focus:ring-purple-500 ring-offset-gray-800 focus:ring-2" />
 							<label
 								for="1no"
@@ -185,7 +230,7 @@
 									id="2yes"
 									type="radio"
 									value="yes"
-									name="question2"
+									name="awareness2"
 									class="w-4 h-4 text-purple-600 bg-gray-100 border-purple-800 focus:ring-purple-500 ring-offset-gray-800 focus:ring-2"
 									checked />
 								<label
@@ -199,7 +244,7 @@
 									id="2no"
 									type="radio"
 									value="no"
-									name="question2"
+									name="awareness2"
 									class="w-4 h-4 text-purple-600 bg-gray-100 border-purple-800 focus:ring-purple-500 ring-offset-gray-800 focus:ring-2" />
 								<label
 									for="2no"
@@ -219,7 +264,7 @@
 									id="3yes"
 									type="radio"
 									value="yes"
-									name="question3"
+									name="awareness3"
 									class="w-4 h-4 text-purple-600 bg-gray-100 border-purple-800 focus:ring-purple-500 ring-offset-gray-800 focus:ring-2"
 									checked />
 								<label
@@ -233,7 +278,7 @@
 									id="3no"
 									type="radio"
 									value="no"
-									name="question3"
+									name="awareness3"
 									class="w-4 h-4 text-purple-600 bg-gray-100 border-purple-800 focus:ring-purple-500 ring-offset-gray-800 focus:ring-2" />
 								<label
 									for="3no"
@@ -243,11 +288,7 @@
 							</div>
 						</div>
 					</div>
-				</form>
 
-				<form
-					action="#"
-					class="mb-4">
 					<div class="bg-gray-100 p-6 w-full rounded-2xl">
 						<p class="font-bold text-purple-700 text-2xl mb-4">Financial Preparedness</p>
 
@@ -259,8 +300,8 @@
 							<input
 								id="1yes"
 								type="radio"
-								value="yes"
-								name="question1"
+								value="Yes, I have a dedicated fund."
+								name="financial1"
 								class="w-4 h-4 text-purple-600 bg-gray-100 border-purple-800 focus:ring-purple-500 ring-offset-gray-800 focus:ring-2"
 								checked />
 							<label
@@ -273,8 +314,8 @@
 							<input
 								id="1no"
 								type="radio"
-								value="no"
-								name="question1"
+								value="Yes, I have funeral insurance."
+								name="financial1"
 								class="w-4 h-4 text-purple-600 bg-gray-100 border-purple-800 focus:ring-purple-500 ring-offset-gray-800 focus:ring-2" />
 							<label
 								for="1no"
@@ -286,8 +327,8 @@
 							<input
 								id="1no"
 								type="radio"
-								value="no"
-								name="question1"
+								value="No, but I am planning to."
+								name="financial1"
 								class="w-4 h-4 text-purple-600 bg-gray-100 border-purple-800 focus:ring-purple-500 ring-offset-gray-800 focus:ring-2" />
 							<label
 								for="1no"
@@ -303,8 +344,8 @@
 								<input
 									id="2yes"
 									type="radio"
-									value="yes"
-									name="question2"
+									value="Personal savings"
+									name="financial2"
 									class="w-4 h-4 text-purple-600 bg-gray-100 border-purple-800 focus:ring-purple-500 ring-offset-gray-800 focus:ring-2"
 									checked />
 								<label
@@ -317,8 +358,8 @@
 								<input
 									id="2no"
 									type="radio"
-									value="no"
-									name="question2"
+									value="Life insurance"
+									name="financial2"
 									class="w-4 h-4 text-purple-600 bg-gray-100 border-purple-800 focus:ring-purple-500 ring-offset-gray-800 focus:ring-2" />
 								<label
 									for="2no"
@@ -330,8 +371,8 @@
 								<input
 									id="2no"
 									type="radio"
-									value="no"
-									name="question2"
+									value="Funeral insurance"
+									name="financial2"
 									class="w-4 h-4 text-purple-600 bg-gray-100 border-purple-800 focus:ring-purple-500 ring-offset-gray-800 focus:ring-2" />
 								<label
 									for="2no"
@@ -341,12 +382,13 @@
 							</div>
 						</div>
 					</div>
+					<button
+						type="submit"
+						class="bg-blue-700 py-3 mt-4 px-8 text-white text-xl font-bold rounded-2xl mb-24 hover:scale-110 hover:shadow-2xl duration-300">
+						Submit
+					</button>
 				</form>
 			</div>
-			<button
-				class="bg-blue-700 py-3 px-8 text-white text-xl font-bold rounded-2xl mb-24 hover:scale-110 hover:shadow-2xl duration-300">
-				Submit
-			</button>
 		</div>
 		<script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"></script>
 	</body>
